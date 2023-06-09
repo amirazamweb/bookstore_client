@@ -17,7 +17,7 @@ const UserProfile = () => {
     }
 
     return (
-        <Layout title={'Profile Admin - Book Store'}>
+        <Layout title={'Profile User - Book Store'}>
             <div className='w-1/2 m-auto my-6 flex items-center gap-20'>
                 <div className='w-1/2 bg-slate-500'>
                     <img
@@ -27,7 +27,7 @@ const UserProfile = () => {
                 </div>
                 <div>
                     <h1
-                        className='text-slate-600 text-2xl font-bold'>Admin:&nbsp;
+                        className='text-slate-600 text-2xl font-bold'>User:&nbsp;
                         <span className='text-slate-500 font-semibold'>{`${auth.user?.fname} ${auth.user?.lname}`}</span></h1>
                     <p className='my-2'>Email: <span>{auth.user?.email}</span></p>
                     <button
