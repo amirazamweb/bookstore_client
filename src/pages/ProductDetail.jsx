@@ -107,7 +107,7 @@ const ProductDetail = () => {
                                         <h4 className='text-slate-500'>Paperback</h4>
                                         <p>
                                             <span className='text-red-500 font-bold text-xl'>&#8377;{productInfo?.price}</span>
-                                            <del className='text-slate-400 mx-1'>&#8377;123</del>
+                                            <del className='text-slate-400 mx-1'>&#8377;{Math.floor((productInfo?.price * 10) / 9)}</del>
                                             <span className='text-green-500'>10% OFF</span>
                                         </p>
                                     </div>
