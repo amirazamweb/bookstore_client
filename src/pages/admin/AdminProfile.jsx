@@ -3,6 +3,7 @@ import Layout from '../../components/Layout/Layout'
 import { useAuth } from '../../context/auth';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import AdminMenu from '../../components/AdminMenu';
 
 const AdminProfile = () => {
     const [auth, setAuth] = useAuth();
@@ -34,6 +35,8 @@ const AdminProfile = () => {
                         className='bg-red-500 text-white px-2 py-1 rounded'
                         onClick={logoutHandler}>Logout</button>
                 </div>
+                {/* admin menu */}
+                <AdminMenu />
             </div>
         </Layout>
     )
