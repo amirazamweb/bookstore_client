@@ -5,6 +5,7 @@ import { Select } from 'antd';
 import { Option } from 'antd/es/mentions';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import AdminMenu from '../../components/AdminMenu';
 
 const CreateProduct = () => {
     const [name, setName] = useState('');
@@ -112,6 +113,8 @@ const CreateProduct = () => {
                             className='w-full px-2 py-2 my-3 bg-red-400 hover:bg-red-500 rounded text-white cursor-pointer' />
                     </form>
                 </div>
+                {/* admin menu */}
+                <AdminMenu />
             </div>
         </Layout>
     )
