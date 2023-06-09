@@ -32,6 +32,12 @@ const CreateProduct = () => {
             const { data } = await axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/api/v1/product/create`, formDetails);
             if (data?.success) {
                 toast.success(data?.message);
+                setName('');
+                setDescription('');
+                setPrice('');
+                setCover('');
+                setAuthor('');
+                setCategory('');
             }
             else {
                 toast.error(data?.message);
@@ -58,6 +64,7 @@ const CreateProduct = () => {
                             placeholder={'Category'}
                             showSearch
                             bordered={false}
+                            value={category}
                             className='w-full py-1 my-2 bg-slate-200 rounded'
                             onChange={(value) => setCategory(value)}>
                             <Option value="New Arrivals">New Arrivals</Option>
