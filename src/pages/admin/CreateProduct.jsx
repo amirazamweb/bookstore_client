@@ -131,7 +131,7 @@ const CreateProduct = () => {
                     </form>
                 </div>
                 {/* admin menu */}
-                <AdminMenu />
+                <AdminMenu idf={'create'} />
             </div>
         </Layout>
     )

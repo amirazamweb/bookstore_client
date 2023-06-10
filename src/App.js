@@ -15,6 +15,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
 import SearchProduct from "./pages/SearchProduct";
+import Products from "./pages/admin/Products";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path="/dashboard/admin" element={<AdminRoute />}>
         <Route path="profile" element={<AdminProfile />} />
         <Route path="create-product" element={<CreateProduct />} />
+        <Route path="products" element={<Products />} />
       </Route>
       <Route path="/dashboard/user" element={<UserRoute />}>
         <Route path="profile" element={<UserProfile />} />

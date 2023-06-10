@@ -36,7 +36,7 @@ const AdminProfile = () => {
                         onClick={logoutHandler}>Logout</button>
                 </div>
                 {/* admin menu */}
-                <AdminMenu />
+                <AdminMenu idf={'profile'} />
             </div>
         </Layout>
     )
