@@ -43,10 +43,11 @@ const Products = () => {
                                 <thead>
                                     <tr>
                                         <th className='border-2 border-solid border-slate-500' style={{ width: '10%' }}>#</th>
-                                        <th className='border-2 border-solid border-slate-500' style={{ width: '40%' }}>Name</th>
-                                        <th className='border-2 border-solid border-slate-500' style={{ width: '30%' }}>Author</th>
+                                        <th className='border-2 border-solid border-slate-500' style={{ width: '35%' }}>Name</th>
+                                        <th className='border-2 border-solid border-slate-500' style={{ width: '25%' }}>Author</th>
                                         <th className='border-2 border-solid border-slate-500' style={{ width: '10%' }}>Price</th>
                                         <th className='border-2 border-solid border-slate-500' style={{ width: '10%' }}>Quantity</th>
+                                        <th className='border-2 border-solid border-slate-500' style={{ width: '10%' }}>Update</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,13 +55,19 @@ const Products = () => {
                                         <tr>
                                             <td className='text-center p-1' style={{ border: '1px solid gray' }}>{i + 1}</td>
                                             <td className='p-1' style={{ border: '1px solid gray' }}>
-                                                {p.name.length < 34 ? p.name : `${p.name.substring(0, 30)}....`}
+                                                {p.name.length < 37 ? p.name : `${p.name.substring(0, 33)}....`}
                                             </td>
                                             <td className='p-1' style={{ border: '1px solid gray' }}>
-                                                {p.author.length < 23 ? p.author : `${p.author.substring(0, 18)}....`}
+                                                {p.author.length < 26 ? p.author : `${p.author.substring(0, 22)}....`}
                                             </td>
                                             <td className='text-center p-1' style={{ border: '1px solid gray' }}>&#8377;{p.price}</td>
                                             <td className='text-center p-1' style={{ border: '1px solid gray' }}>{p.quantity}</td>
+                                            <td className='text-center p-1' style={{ border: '1px solid gray' }}>
+                                                <select className='cursor-pointer appearance-none w-full text-center'>
+                                                    <option>edit</option>
+                                                    <option>delete</option>
+                                                </select>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
