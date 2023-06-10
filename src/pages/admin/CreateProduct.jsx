@@ -12,6 +12,7 @@ const CreateProduct = () => {
     const [description, setDescription] = useState('');
     const [author, setAuthor] = useState('');
     const [price, setPrice] = useState('');
+    const [quantity, setQuantity] = useState('');
     const [category, setCategory] = useState('');
     const [cover, setCover] = useState('');
 
@@ -25,6 +26,7 @@ const CreateProduct = () => {
             formDetails.append('author', author);
             formDetails.append('description', description);
             formDetails.append('price', price);
+            formDetails.append('quantity', quantity);
             formDetails.append('category', category);
             formDetails.append('cover', cover);
 
@@ -35,6 +37,7 @@ const CreateProduct = () => {
                 setName('');
                 setDescription('');
                 setPrice('');
+                setQunatity('');
                 setCover('');
                 setAuthor('');
                 setCategory('');
@@ -115,6 +118,13 @@ const CreateProduct = () => {
                             placeholder='Price'
                             value={price}
                             onChange={(e) => setPrice(e.target.value)} />
+
+                        <input type="number"
+                            className='w-full px-2 py-2 my-2 bg-slate-200 rounded focus-within:outline-slate-300'
+                            required
+                            placeholder='Quantity'
+                            value={quantity}
+                            onChange={(e) => setQuantity(e.target.value)} />
 
                         <input type="submit" value='Create Product'
                             className='w-full px-2 py-2 my-3 bg-red-400 hover:bg-red-500 rounded text-white cursor-pointer' />
