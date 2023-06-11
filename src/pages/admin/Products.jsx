@@ -73,7 +73,7 @@ const Products = () => {
                                         <tr>
                                             <td className='text-center p-1' style={{ border: '1px solid gray' }}>{i + 1}</td>
                                             <td className='p-1' style={{ border: '1px solid gray' }}>
-                                                {p.name.length < 37 ? p.name : `${p.name.substring(0, 33)}....`}
+                                                {p.name.length < 36 ? p.name : `${p.name.substring(0, 32)}....`}
                                             </td>
                                             <td className='p-1' style={{ border: '1px solid gray' }}>
                                                 {p.author.length < 26 ? p.author : `${p.author.substring(0, 22)}....`}

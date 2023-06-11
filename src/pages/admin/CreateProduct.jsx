@@ -37,7 +37,7 @@ const CreateProduct = () => {
                 setName('');
                 setDescription('');
                 setPrice('');
-                setQunatity('');
+                setQuantity('');
                 setCover('');
                 setAuthor('');
                 setCategory('');
