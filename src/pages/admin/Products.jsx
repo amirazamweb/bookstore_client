@@ -3,11 +3,13 @@ import Layout from '../../components/Layout/Layout';
 import axios from 'axios';
 import AdminMenu from '../../components/AdminMenu';
 import loadingImg from '../../images/loading.gif'
-import { FaLessThanEqual } from 'react-icons/fa';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Products = () => {
     const [productsList, setProductList] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     // get all products
     const getAllProducts = async () => {
@@ -24,10 +26,27 @@ const Products = () => {
         }
     }
 
+    // changeHandler
+    const changeHandler = async (e, slug) => {
+        if (e.target.value === 'edit') {
+            navigate('/dashboard/admin/update-product/slug');
+            window.scrollTo(0, 0);
+        }
+        else if (e.target.value === 'delete') {
+            const isConfirm = window.confirm('Are you sure want to delete the product?');
+            if (!isConfirm) return;
+            const { data } = await axios.delete(`${process.env.REACT_APP_SERVER_DOMAIN}/api/v1/product/delete/${slug}`);
+            if (data?.success) {
+                toast.success('Product deleted sucessfully');
+                getAllProducts();
+            }
+        }
+    }
+
     // useEffect
     useEffect(() => {
         getAllProducts()
-    }, [])
+    }, [productsList.length]);
 
     return (
         <Layout title={'Products Admin - Book Store'}>
@@ -63,9 +82,10 @@ const Products = () => {
                                             <td className='text-center p-1' style={{ border: '1px solid gray' }}>&#8377;{p.price}</td>
                                             <td className='text-center p-1' style={{ border: '1px solid gray' }}>{p.quantity}</td>
                                             <td className='text-center p-1' style={{ border: '1px solid gray' }}>
-                                                <select className='cursor-pointer appearance-none w-full text-center'>
-                                                    <option>edit</option>
-                                                    <option>delete</option>
+                                                <select className='cursor-pointer text-sm appearance-none w-full text-center' onChange={(e) => changeHandler(e, p.productSlug)}>
+                                                    <option value='edit' selected disabled>select one</option>
+                                                    <option value='edit'>edit</option>
+                                                    <option value='delete'>delete</option>
                                                 </select>
                                             </td>
                                         </tr>

@@ -15,6 +15,14 @@ const AdminMenu = ({ idf }) => {
             <Link to='/dashboard/admin/products'>
                 <div className={`mb-4 text-white px-2 py-1 text-sm ${idf === 'products' ? 'bg-sky-500' : 'bg-slate-500'}`}>Products</div>
             </Link>
+
+            <Link to='/dashboard/admin/orders'>
+                <div className={`mb-4 text-white px-2 py-1 text-sm ${idf === 'orders' ? 'bg-sky-500' : 'bg-slate-500'}`}>Products</div>
+            </Link>
+
+            <Link to='/dashboard/admin/users'>
+                <div className={`mb-4 text-white px-2 py-1 text-sm ${idf === 'users' ? 'bg-sky-500' : 'bg-slate-500'}`}>Products</div>
+            </Link>
         </div>
     )
 }
