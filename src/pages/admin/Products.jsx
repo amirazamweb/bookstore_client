@@ -13,7 +13,6 @@ const Products = () => {
 
     // get all products
     const getAllProducts = async () => {
-        setLoading(true);
         try {
             const { data } = await axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/v1/product/all`);
             if (data?.success) {
@@ -29,7 +28,7 @@ const Products = () => {
     // changeHandler
     const changeHandler = async (e, slug) => {
         if (e.target.value === 'edit') {
-            navigate('/dashboard/admin/update-product/slug');
+            navigate(`/dashboard/admin/update-product/${slug}`);
             window.scrollTo(0, 0);
         }
         else if (e.target.value === 'delete') {
