@@ -55,10 +55,10 @@ const Products = () => {
                         <img src={loadingImg} alt="loading img" className='w-full' />
                     </div>) :
                     (
-                        <>
-                            <h2 className='text-2xl text-slate-500 font-semibold text-center my-6'>All Products</h2>
-                            <table className='w-3/5 m-auto border-2 border-solid border-slate-500 mb-6'>
-                                <thead>
+                        <div className='bg-slate-200 py-6'>
+                            <h2 className='text-2xl text-slate-500 font-semibold text-center mb-4'>All Products</h2>
+                            <table className='w-3/5 m-auto border-2 border-solid border-slate-500 mb-6 bg-white'>
+                                <thead className='text-slate-600'>
                                     <tr>
                                         <th className='border-2 border-solid border-slate-500' style={{ width: '10%' }}>#</th>
                                         <th className='border-2 border-solid border-slate-500' style={{ width: '35%' }}>Name</th>
@@ -68,7 +68,7 @@ const Products = () => {
                                         <th className='border-2 border-solid border-slate-500' style={{ width: '10%' }}>Update</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className='text-slate-600'>
                                     {productsList?.map((p, i) => (
                                         <tr>
                                             <td className='text-center p-1' style={{ border: '1px solid gray' }}>{i + 1}</td>
@@ -91,7 +91,7 @@ const Products = () => {
                                     ))}
                                 </tbody>
                             </table>
-                        </>
+                        </div>
                     )}
                 {/* Admin Menu */}
                 <AdminMenu idf={'products'} />
