@@ -1,17 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '../components/Layout/Layout'
 import { useCart } from '../context/cart'
 import { useAuth } from '../context/auth';
 import CartItem from '../components/CartItem';
 import emptyCartImg from '../images/empty-cart.png';
-import userAnimation from '../images/login-animation.gif'
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast'
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import { useEffect } from 'react';
+import DropIn from "braintree-web-drop-in-react";
 
 const Cart = () => {
     const [cart, setCart] = useCart();
     const [auth] = useAuth();
     const navigate = useNavigate();
+    const [clientToken, setClientToken] = useState('');
+    const [instance, setInstance] = useState('');
 
     const toTalSum = () => {
         let sum = 0;
@@ -19,16 +23,32 @@ const Cart = () => {
             sum += (el.price * el.itemCount)
         })
         return sum
-
-
     }
 
-    // checkout Handler
-    const checkoutHandler = () => {
-        setCart([]);
-        localStorage.removeItem('bookstore_cart');
-        toast.success('Your order has been placed successfully')
-        setTimeout(() => navigate('/'), 0);
+    // call gateway token
+    const gateWayToken = async () => {
+        try {
+            const { data } = await axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/v1/product/braintree/token`);
+            setClientToken(data?.clientToken);
+        } catch (error) {
+
+        }
+    }
+
+    // handle payments
+    const handlePayment = async () => {
+        try {
+            const { nonce } = await instance.requestPaymentMethod();
+            await axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/api/v1/product/braintree/payment`, {
+                nonce, cart, _id: auth.user._id
+            })
+            localStorage.removeItem('bookstore_cart');
+            setCart([]);
+            toast.success('Payment Completed Successfully');
+            setTimeout(() => navigate('/dashboard/user/orders'), 0);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     // login Checkout Handler
@@ -36,6 +56,11 @@ const Cart = () => {
         navigate('/login');
         window.scrollTo(0, 0);
     }
+
+    // useEffect
+    useEffect(() => {
+        gateWayToken();
+    }, [])
 
     return (
         <Layout title={'Cart - Book Store'}>
@@ -67,24 +92,30 @@ const Cart = () => {
                                         <h1 className='text-2xl font-semibold text-sky-500 mb-2'>Cart Summary</h1>
                                         <h2 className='text-base font-semibold text-slate-500 mb-2'>Total | Checkout | Payment</h2>
                                         <hr className='bg-slate-300 w-full h-1 my-2' />
+                                        <h2 className='text-xl font-semibold text-slate-500'>Total: &#8377;{toTalSum()}</h2>
                                         {
                                             auth?.token ?
                                                 (<div>
-                                                    <div className='flex gap-12 items-center'>
-                                                        <div className='w-1/5 mx-10 rounded-full overflow-hidden drop-shadow-md shadow-md'>
-                                                            <img src={userAnimation} alt="user" className='w-full' />
-                                                        </div>
-                                                        <div className='text-xl font-semibold text-slate-500 mb-2'>Hello! {auth?.user?.fname}</div>
-                                                    </div>
-                                                    <hr className='bg-slate-300 w-full h-1 my-2' />
-                                                    <h2 className='text-xl font-semibold text-slate-500 mb-2'>Total: &#8377;{toTalSum()}</h2>
-                                                    <div>
-                                                        <button className='bg-slate-500 text-white px-2 py-1 rounded text-base' onClick={checkoutHandler}>Proceed to Checkout</button>
-                                                    </div>
+                                                    {
+                                                        !clientToken ? (
+                                                            <div>
+                                                                <h4>Loading........</h4>
+                                                            </div>) :
+                                                            (
+                                                                <div className='w-3/4 m-auto'>
+                                                                    <DropIn
+                                                                        options={{ authorization: clientToken }}
+                                                                        onInstance={(instance) => setInstance(instance)}
+                                                                    />
+                                                                    <button
+                                                                        className='bg-green-500 text-white px-2 py-1 rounded text-base'
+                                                                        onClick={handlePayment}>Checkout</button>
+                                                                </div>
+                                                            )
+                                                    }
                                                 </div>) :
 
                                                 (<>
-                                                    <h2 className='text-xl font-semibold text-slate-500 mb-2'>Total: &#8377;{toTalSum()}</h2>
                                                     <button className='bg-red-500 text-white px-2 py-1 rounded text-base' onClick={loginCheckoutHandler}>Please Login to Checkout</button>
                                                 </>)
                                         }
@@ -97,7 +128,6 @@ const Cart = () => {
                                 <img src={emptyCartImg} alt="empty-cart" className='w-full' />
                             </div>
                         )
-
                 }
             </div>
         </Layout>

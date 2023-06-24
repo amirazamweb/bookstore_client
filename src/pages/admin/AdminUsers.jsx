@@ -33,7 +33,6 @@ const AdminUsers = () => {
 
     // role handler
     const roleHandler = async (e, existingRole, userId) => {
-        console.log(e.target.value === existingRole, userId);
         if (e.target.value === existingRole) {
             return
         }

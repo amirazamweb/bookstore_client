@@ -3,6 +3,7 @@ import Layout from '../../components/Layout/Layout'
 import { useAuth } from '../../context/auth';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import UserMenu from '../../components/UserMenu';
 
 const UserProfile = () => {
     const [auth, setAuth] = useAuth();
@@ -21,7 +22,7 @@ const UserProfile = () => {
             <div className='w-1/2 m-auto my-6 flex items-center gap-20'>
                 <div className='w-1/2 bg-slate-500'>
                     <img
-                        src={`${process.env.REACT_APP_SERVER_DOMAIN}/api/v1/auth//profile-image/${auth.user?._id}`}
+                        src={`${process.env.REACT_APP_SERVER_DOMAIN}/api/v1/auth//profile-image/${auth?.user?._id}`}
                         alt="admin-profile"
                         className='w-full h-auto rounded' />
                 </div>
@@ -35,6 +36,8 @@ const UserProfile = () => {
                         onClick={logoutHandler}>Logout</button>
                 </div>
             </div>
+            {/* User Menu */}
+            <UserMenu idf={'profile'} />
         </Layout>
     )
 }
