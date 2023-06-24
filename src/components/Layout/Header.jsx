@@ -50,6 +50,7 @@ const Header = () => {
     const logoutHandler = () => {
         setAuth({ ...auth, user: null, token: '' });
         localStorage.removeItem('bookstore_auth');
+        window.scrollTo(0, 0);
         toast.success('Logout sucessfully');
         setTimeout(() => navigate('/login'), 0);
     }
